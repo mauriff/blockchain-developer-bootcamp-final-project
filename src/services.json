@@ -1,0 +1,35 @@
+[
+    {
+      "id": 0,
+      "name": "Water",
+      "picture": "images/water.png",
+      "pricing": 3,
+      "company": "Water Services",
+      "eth_to_pay": "0xdb8d4099e12099ccC6cB1D2b5684D9e1BA06EC1C"
+    },
+    {
+      "id": 1,
+      "name": "Tv",
+      "picture": "images/tv.png",
+      "pricing": 3,
+      "company": "Tv services",
+      "eth_to_pay": "0xdb8d4099e12099ccC6cB1D2b5684D9e1BA06EC1C"
+    },
+    {
+      "id": 2,
+      "name": "Electricity",
+      "picture": "images/electricity.png",
+      "pricing": 3,
+      "company": "Epec",
+      "eth_to_pay": "0xdb8d4099e12099ccC6cB1D2b5684D9e1BA06EC1C"
+    },
+    {
+      "id": 3,
+      "name": "garbage collector",
+      "picture": "images/garbage.png",
+      "pricing": 3,
+      "company": "URBA",
+      "eth_to_pay": "0xdb8d4099e12099ccC6cB1D2b5684D9e1BA06EC1C"
+    }
+  ]
+  
