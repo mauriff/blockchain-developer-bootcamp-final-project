@@ -8,12 +8,16 @@ pragma solidity >=0.4.22 <0.9.0;
 contract PayTheBills {
 
   address public owner = msg.sender;
+  uint public itemCount;
+  mapping (uint => Item)public items;
+  enum State {ToPay, Paid}
 
   struct Item{
     string name;
     uint price;
-    address payable paymaster;
-    address payable seller;
+    State state;
+    address  paymaster;
+    address payable payTo;
   }
 
   modifier onlyOwner() {
@@ -21,16 +25,20 @@ contract PayTheBills {
       _;
   }
 
-  constructor() public {
+  event LogToPay(string indexed _name);
+  event LogPaid(string indexed _name);
+
+  constructor()  {
     owner = msg.sender;
+    itemCount = 0;
   }
 
   /// @notice Add an item to pay the bills
   /// @param _name the name of the service to pay
   /// @param _price the price of the service to pay
-  /// @param _seller the address of the seller to pay the service
+  /// @param _payTo the address of the seller to pay the service
   /// @return boolean, that means that the item was added succesfully
-  function addItemToTheBill(string memory _name, uint _price,address payable _seller) public returns (bool) {
+  function addItemToTheBill(string memory _name, uint _price,address payable _payTo) public returns (bool) {
     //_name is not null
     //require(_name >= 0);
 
@@ -38,13 +46,27 @@ contract PayTheBills {
     //require(_price >= 0);
 
     //Add items to pay
-    
+    // 1. Create a new item and put in array
+    items[itemCount] = Item ({
+      name: _name, 
+      price: _price, 
+      state: State.ToPay, 
+      paymaster: msg.sender, 
+      payTo: _payTo
+
+    });
+
+    itemCount++;
+    emit LogToPay(items[itemCount].name);
+    return true;
+
   }
 
   /// @notice Pay the bills that are in the items array
   /// @param _name the name of the service to pay
   /// @return boolean, the payment was succesful
   function payTheBills(string memory _name) onlyOwner public returns (bool) {
+    emit LogPaid(items[itemCount].name);
     return true;
   }
 
