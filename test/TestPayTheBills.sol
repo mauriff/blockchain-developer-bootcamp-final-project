@@ -21,7 +21,7 @@ contract TestPayTheBills {
 
     // Testing the payTheBills() function
     function testUserCanAddItems() public {
-         (bool r, ) = payTheBills.addItemToTheBill("water", 100, "0xdb8d4099e12099ccC6cB1D2b5684D9e1BA06EC1C");
+         bool r = payTheBills.addItemToTheBill("water", 100, 0xdb8d4099e12099ccC6cB1D2b5684D9e1BA06EC1C);
          Assert.isTrue(r, "Buyer must be able to receive item.");
 
     }

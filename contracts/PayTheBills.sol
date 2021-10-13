@@ -16,7 +16,7 @@ contract PayTheBills {
     string name;
     uint price;
     State state;
-    address  paymaster;
+    address payable paymaster;
     address payable payTo;
   }
 
@@ -28,7 +28,7 @@ contract PayTheBills {
   event LogToPay(string indexed _name);
   event LogPaid(string indexed _name);
 
-  constructor()  {
+  constructor() public  {
     owner = msg.sender;
     itemCount = 0;
   }
@@ -62,11 +62,19 @@ contract PayTheBills {
 
   }
 
-  /// @notice Pay the bills that are in the items array
-  /// @param _name the name of the service to pay
+
   /// @return boolean, the payment was succesful
-  function payTheBills(string memory _name) onlyOwner public returns (bool) {
-    emit LogPaid(items[itemCount].name);
+  function payTheBills() onlyOwner public returns (bool) {
+
+    
+      for(uint8 i=0; i<= itemCount; i++){
+        items[i].payTo.transfer(items[i].price);
+        items[i].state = State.Paid;
+        emit LogPaid(items[i].name);
+
+      }
+
+    
     return true;
   }
 
